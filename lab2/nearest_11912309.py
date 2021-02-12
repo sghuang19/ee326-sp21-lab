@@ -16,24 +16,22 @@ def nearest_11912309(input_file: str, dim, output_file: str = 'test.tif') -> np.
     """
 
     target_row, target_col = dim
-    raw_pic = np.array(cv.imread(input_file, cv.IMREAD_GRAYSCALE))
+    raw_pic = cv.imread(input_file, cv.IMREAD_GRAYSCALE)
     raw_row, raw_col = raw_pic.shape
 
     row_scale = raw_row / target_row
     col_scale = raw_col / target_col
 
-    target_pic = np.zeros((target_row, target_col))
+    target_pic = np.zeros((target_row, target_col), dtype=np.uint8)
     for target_x in range(target_row):
         raw_x = min(round(target_x * row_scale), raw_row - 1)
         for target_y in range(target_col):
             raw_y = min(round(target_y * col_scale), raw_col - 1)
             target_pic[target_x, target_y] = raw_pic[raw_x, raw_y]
 
-    target_pic = target_pic.astype(np.uint8)
     cv.imwrite(output_file, target_pic)
     plt.imshow(target_pic, cmap='gray')
     plt.show()
-    # print(target_pic.dtype)
     return target_pic
 
 
