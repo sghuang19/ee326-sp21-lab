@@ -35,8 +35,9 @@ def nearest_11912309(input_file: str, dim, output_file: str = 'test.tif') -> np.
 
     for x in range(target_row):
         for y in range(target_col):
-            target_pic[x, y] = raw_pic[round(target_x[x]),
-                                       raw_pic[round(target_y[y])]]
+            # target_pic[x, y] = raw_pic[round(target_x[x]),
+            #                            raw_pic[round(target_y[y])]]
+            target_pic[x, y] = raw_pic[round(target_x[x]), round(target_y[y])]
 
     cv.imwrite(output_file, target_pic)
     plt.imshow(target_pic, cmap='gray')
