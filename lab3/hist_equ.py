@@ -23,7 +23,7 @@ def hist_equ(raw_img=None, file_name=None):
 
     # input_hist = histogram(raw_img)
     input_hist, _ = np.histogram(raw_img.flat, bins=bins, density=True)
-    print(file_name, 'raw', np.count_nonzero(input_hist))
+    # print(file_name, 'raw', np.count_nonzero(input_hist))
 
     # s = np.zeros(L, int)
     # for k in range(L):
@@ -34,9 +34,10 @@ def hist_equ(raw_img=None, file_name=None):
     out_img = np.array([s[r] for r in raw_img], int).reshape(raw_img.shape)
     # output_hist = histogram(out_img)
     output_hist, _ = np.histogram(out_img.flat, bins=bins, density=True)
-    print(file_name, 'equalized', np.count_nonzero(output_hist))
+    # print(file_name, 'equalized', np.count_nonzero(output_hist))
 
     # %% plots
+    '''
     plt.subplot(121)
     plt.imshow(raw_img, cmap='gray', norm=norm)
     plt.title("Raw " + file_name)
@@ -59,6 +60,7 @@ def hist_equ(raw_img=None, file_name=None):
     plt.xlabel('$r_k$')
     plt.ylabel('$s_k$')
     plt.show()
+    '''
 
     return out_img, output_hist, input_hist, s
 
