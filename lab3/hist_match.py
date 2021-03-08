@@ -38,7 +38,7 @@ def hist_match(input_image, spec_hist=None):
     plt.subplot(122)
     plt.imshow(out_img, cmap='gray', norm=norm)
     plt.title("Enhanced " + input_image)
-    # plt.savefig(input_image + "_comparison.png")
+    # plt.savefig(file_name + "_comparison.png")
     plt.show()
 
     plt.figure(figsize=(9.6, 4.8))
@@ -56,7 +56,7 @@ def hist_match(input_image, spec_hist=None):
     plt.title("Histogram of enhanced " + input_image)
     plt.bar(range(L), output_hist)
     # plt.legend(('raw image', 'specified histogram', 'matched image'))
-    # plt.savefig(input_image + "_histogram.png")
+    # plt.savefig(file_name + "_histogram.png")
     plt.show()
 
     plt.plot(z)
@@ -95,7 +95,7 @@ plt.title("Histogram equalized")
 plt.subplot(122)
 plt.imshow(out_img_2, cmap='gray', norm=norm)
 plt.title("Enhanced with a specified histogram")
-# plt.savefig(input_image + "_comparison.png")
+# plt.savefig(file_name + "_comparison.png")
 plt.show()
 
 # plt.plot(z1)

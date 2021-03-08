@@ -36,7 +36,7 @@ dim_enlarged = [round(256 * (1 + 9 / 10))] * 2
 dim_shrunk = [round(256 * 9 / 10)] * 2
 raw_file = "rice.tif"
 
-bicubic_11912309(raw_file, dim_enlarged, "enlarged_bicubic_11912309.png")
+# bicubic_11912309(raw_file, dim_enlarged, "enlarged_bicubic_11912309.png")
 bicubic_11912309(raw_file, dim_enlarged, "enlarged_bicubic_11912309.tif")
-bicubic_11912309(raw_file, dim_shrunk, "shrunk_bicubic_11912309.png")
+# bicubic_11912309(raw_file, dim_shrunk, "shrunk_bicubic_11912309.png")
 bicubic_11912309(raw_file, dim_shrunk, "shrunk_bicubic_11912309.tif")

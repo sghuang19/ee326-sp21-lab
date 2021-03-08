@@ -4,12 +4,13 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 
 
-def hist_equ(input_image: str):
+def hist_equ(raw_img=None, file_name=None):
     """
     Implement the histogram equalization to the input images Q3_1_1.tif and Q3_1_2.tif
     """
 
-    raw_img = cv.imread(input_image, cv.IMREAD_GRAYSCALE)
+    if raw_img is None:
+        raw_img = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
 
     norm = Normalize(vmin=0, vmax=255)
     L = 2 ** 8
@@ -22,7 +23,7 @@ def hist_equ(input_image: str):
 
     # input_hist = histogram(raw_img)
     input_hist, _ = np.histogram(raw_img.flat, bins=bins, density=True)
-    print(input_image, 'raw', np.count_nonzero(input_hist))
+    print(file_name, 'raw', np.count_nonzero(input_hist))
 
     # s = np.zeros(L, int)
     # for k in range(L):
@@ -33,28 +34,28 @@ def hist_equ(input_image: str):
     out_img = np.array([s[r] for r in raw_img], int).reshape(raw_img.shape)
     # output_hist = histogram(out_img)
     output_hist, _ = np.histogram(out_img.flat, bins=bins, density=True)
-    print(input_image, 'equalized', np.count_nonzero(output_hist))
+    print(file_name, 'equalized', np.count_nonzero(output_hist))
 
     # %% plots
     plt.subplot(121)
     plt.imshow(raw_img, cmap='gray', norm=norm)
-    plt.title("Raw " + input_image)
+    plt.title("Raw " + file_name)
 
     plt.subplot(122)
     plt.imshow(out_img, cmap='gray', norm=norm)
-    plt.title("Equalized " + input_image)
-    # plt.savefig(input_image + "_comparison.png")
+    plt.title("Equalized " + file_name)
+    # plt.savefig(file_name + "_comparison.png")
     plt.show()
 
-    plt.title("Histogram of " + input_image)
+    plt.title("Histogram of " + file_name)
     plt.bar(range(L), input_hist)
     plt.bar(range(L), output_hist)
     plt.legend(('raw image', 'equalized image'))
-    # plt.savefig(input_image + "_histogram.png")
+    # plt.savefig(file_name + "_histogram.png")
     plt.show()
 
     plt.plot(range(L), s)
-    plt.title("Histogram equalization transformation for " + input_image)
+    plt.title("Histogram equalization transformation for " + file_name)
     plt.xlabel('$r_k$')
     plt.ylabel('$s_k$')
     plt.show()
@@ -64,8 +65,8 @@ def hist_equ(input_image: str):
 
 # %%
 
-*_, trans_1 = hist_equ("Q3_1_1.tif")
-*_, trans_2 = hist_equ("Q3_1_2.tif")
+*_, trans_1 = hist_equ(file_name="Q3_1_1.tif")
+*_, trans_2 = hist_equ(file_name="Q3_1_2.tif")
 
 plt.plot(range(2 ** 8), trans_1)
 plt.plot(range(2 ** 8), trans_2)

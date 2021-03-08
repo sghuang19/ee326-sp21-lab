@@ -80,6 +80,6 @@ dim_shrunk = [round(256 * 9 / 10)] * 2
 # %% bilinear interpolation
 raw_file = "rice.tif"
 bilinear_11912309(raw_file, dim_enlarged, "enlarged_bilinear_11912309.png")
-bilinear_11912309(raw_file, dim_enlarged, "enlarged_bilinear_11912309.tif")
+# bilinear_11912309(raw_file, dim_enlarged, "enlarged_bilinear_11912309.tif")
 bilinear_11912309(raw_file, dim_shrunk, "shrunk_bilinear_11912309.png")
-bilinear_11912309(raw_file, dim_shrunk, "shrunk_bilinear_11912309.tif")
+# bilinear_11912309(raw_file, dim_shrunk, "shrunk_bilinear_11912309.tif")
