@@ -20,10 +20,20 @@ def hist_match(input_image, spec_hist=None):
     bins = range(L + 1)
 
     input_hist, _ = np.histogram(raw_img.flat, bins=bins, density=True)
-    s = np.array([(L - 1) * sum(input_hist[:k + 1]) for k in range(L)], int)
-    g = np.array([(L - 1) * sum(spec_hist[:q + 1]) for q in range(L)], int)
+    s = np.array([(L - 1) * input_hist[:k + 1].sum() for k in range(L)], int)
+    g = np.array([(L - 1) * spec_hist[:q + 1].sum() for q in range(L)], int)
     # the index of g is implicitly z
-    z = np.array([np.where(g == e)[0][0] if len(np.where(g == e)[0]) != 0 else 0 for e in s], int)
+    # z = np.array([np.where(g == e)[0][0] if len(np.where(g == e)[0]) != 0 else 0 for e in s], int)
+    z = np.array([np.abs(g - e).argmin() for e in s], int)
+
+    # z = []
+    # for e in s:
+    #     index = np.where(g == e)
+    #     lower = upper = e
+    #     while index.size is 0:
+    #         lower -= 1
+    #         upper += 1
+    #         index = np.append(np.where(g == lower), np.where(g == upper))
 
     out_img = np.array([z[r] for r in raw_img], int).reshape(raw_img.shape)
     output_hist, _ = np.histogram(out_img.flat, bins=bins, density=True)
@@ -78,7 +88,7 @@ hist = np.concatenate((np.linspace(0, 7, 8 - 0),
                        np.linspace(0.75, 0, 184 - 16),
                        np.linspace(0, 0.5, 200 - 184),
                        np.linspace(0.5, 0, 256 - 200)), axis=0)
-hist = hist / sum(hist)
+hist = hist / hist.sum()
 plt.plot(hist)
 plt.title("Histogram specified")
 plt.xlabel('intensity')
