@@ -4,6 +4,9 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 
 
+# import threading
+# from multiprocessing import Process
+
 def local_hist_equ(in_img, m_size):
     """
     Implement the local histogram equalization to the input images Q3_3.tif
@@ -14,13 +17,22 @@ def local_hist_equ(in_img, m_size):
 
     L = 2 ** 8
     bins = range(L + 1)
+
+    # def local():
+    #     # def local(in_img, out_img, m_size, i, j):
+    #     _local_img = in_img[i:i + m_size, j:j + m_size]
+    #     _local_hist, _ = np.histogram(_local_img.flat, bins=bins, density=True)
+    #     _s = np.array([(L - 1) * _local_hist[:_k + 1].sum() for _k in range(L)])
+    #     out_img[i:i + m_size, j:j + m_size] = np.array([_s[r] for r in _local_img], int).reshape([m_size] * 2)
+    #     pass
+
     for i in list(range(0, row - m_size, m_size)) + [row - m_size - 1]:
         for j in list(range(0, col - m_size, m_size)) + [col - m_size - 1]:
-            local_img = in_img[i:i + m_size + 1, j:j + m_size + 1]
+            local_img = in_img[i:i + m_size, j:j + m_size]
             local_hist, _ = np.histogram(local_img.flat, bins=bins, density=True)
-            # s = np.array([(L - 1) * sum(local_hist[:k + 1]) for k in range(L)])
 
             s = np.array([(L - 1) * local_hist[:k + 1].sum() for k in range(L)])
+
             # s = np.zeros((1, L))
             # for k in range(L):
             #     s[0, k] = (L - 1) * local_hist[:k + 1].sum()
@@ -33,6 +45,7 @@ def local_hist_equ(in_img, m_size):
             #     tmp = s[0, r]
             #     i += 1
             # out_img[i:i + m_size, j:j + m_size] = tmp
+            # Process(target=local).start()
 
     norm = Normalize(vmin=0, vmax=255)
     plt.subplot(121)
