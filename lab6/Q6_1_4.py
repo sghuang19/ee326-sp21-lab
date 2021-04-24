@@ -14,7 +14,8 @@ def alpha_filter(img_raw, n: int = 3, d=0.1):
     row, col = img_raw.shape
     img_pad = np.pad(img_raw, m)
 
-    img_out = np.array([np.mean(np.sort(img_pad[i:i + n, j:j + n].flat)[trimmed:-trimmed])
+    img_out = np.array([np.mean(np.sort(img_pad[i:i + n, j:j + n].flat)
+                                [trimmed:-trimmed])
                         for i in range(row)
                         for j in range(col)])
 
