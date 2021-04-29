@@ -8,6 +8,9 @@ from numpy.fft import fft2, ifft2, fftshift, ifftshift
 Q6_2 = np.array(Image.open("Q6_2.tif"))
 row, col = Q6_2.shape
 img_fourier = fftshift(fft2(Q6_2))
+img_fourier_view = np.log(np.abs(img_fourier) + 1)
+plt.imshow(img_fourier_view, cmap='gray')
+plt.show()
 
 
 # %% butterworth low pass filter
@@ -44,12 +47,20 @@ func = np.fromfunction(lambda mu, nu:
                        np.exp(-k * ((mu - row / 2) ** 2 + (nu - col / 2) ** 2) ** (5 / 6)),
                        (row, col))
 
+plt.imshow(func, cmap='gray')
+plt.show()
+
 # %% restore the image
-img_out_fourier = img_fourier / func
+# img_out_fourier = img_fourier / func
+img_out_fourier = np.divide(img_fourier, func)
+img_out_fourier_view = np.log(np.abs(img_out_fourier) + 1)
+plt.imshow(img_out_fourier_view, cmap='gray')
+plt.show()
 
 
 def restore(butter, fourier=img_out_fourier):
     fourier *= butter
+    # fourier = np.multiply(fourier, butter)
     img_out_view = np.log10(np.abs(fourier) + 1)
     img_out = np.abs(ifft2(ifftshift(img_out_fourier)))
     return fourier, img_out_view, img_out
